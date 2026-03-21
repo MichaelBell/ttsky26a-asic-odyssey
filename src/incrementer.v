@@ -1,6 +1,10 @@
 `default_nettype none
 
 module incrementer (
+`ifdef GL_TEST
+    inout wire VPWR,
+    inout wire VGND,
+`endif
     input wire clk,
     input wire rst_n,
     input wire inc,
