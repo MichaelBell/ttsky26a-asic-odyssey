@@ -31,6 +31,10 @@ module tb ();
   wire hsync = uo_out[7];
   wire vsync = uo_out[3];
   
+  wire [1:0] red = colour[5:4];
+  wire [1:0] green = colour[3:2];
+  wire [1:0] blue = colour[1:0];
+
   // Replace tt_um_example with your module name:
   tt_um_sprite_rom_test user_project (
 
