@@ -58,8 +58,6 @@
   "FP_IO_HLENGTH": 2,
   "FP_IO_VLENGTH": 2,
 
-  "FP_PDN_VPITCH": 38.87,
-
   "//": "Clock",
   "RUN_CTS": 1,
 
@@ -70,5 +68,49 @@
   "MAGIC_DEF_LABELS": 0,
 
   "//": "Only export pin area in LEF (without any connected nets)",
-  "MAGIC_WRITE_LEF_PINONLY": 1
+  "MAGIC_WRITE_LEF_PINONLY": 1,
+
+  "//": "Macro",
+  "MACROS": {
+    "flag_rom": {
+      "instances": {
+        "sprite": {
+          "location": [15.5, 0.1],
+          "orientation": "FS"
+        }
+      },
+      "gds": ["dir::../macro/flag_rom.gds"],
+      "lef": ["dir::../macro/flag_rom.lef"],
+      "lib": {
+        "*": ["dir::../macro/flag_rom.lib"]
+      }
+    },
+    "incrementer": {
+      "instances": {
+        "timing.counter": {
+          "location": [0.1, 0.785],
+          "orientation": "N"
+        }
+      },
+      "gds": ["dir::../macro/incrementer.gds"],
+      "lef": ["dir::../macro/incrementer.lef"]      
+    }
+  },
+
+  "//": "Macro power",
+
+  "//": "  Have magic consider nets of same name to be connected since our power pads are not all internally connected",
+  "MAGIC_NO_EXT_UNIQUE": 1,
+
+  "//": "  Full custom PDN config",
+  "FP_PDN_CFG": "dir::pdn_cfg.tcl",
+
+  "//": "  Config",
+  "FP_PDN_HORIZONTAL_LAYER": "met3",
+  "FP_MACRO_HORIZONTAL_HALO": "2",
+  "FP_MACRO_VERTICAL_HALO": "1",
+  "FP_ENDCAP_CELL": "sky130_fd_sc_hd__tapvpwrvgnd_1",
+  "FP_PDN_VOFFSET": "4.45",
+  "FP_PDN_VSPACING": "1.4",
+  "FP_PDN_VPITCH": "42"
 }
