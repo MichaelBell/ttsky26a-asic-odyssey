@@ -46,9 +46,9 @@
 
   "//": "Reduce wasted space",
   "TOP_MARGIN_MULT": 1,
-  "BOTTOM_MARGIN_MULT": 1,
-  "LEFT_MARGIN_MULT": 6,
-  "RIGHT_MARGIN_MULT": 6,
+  "BOTTOM_MARGIN_MULT": 0,
+  "LEFT_MARGIN_MULT": 1,
+  "RIGHT_MARGIN_MULT": 1,
 
   "//": "Absolute die size",
   "FP_SIZING": "absolute",
