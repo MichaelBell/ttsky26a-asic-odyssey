@@ -27,8 +27,12 @@ module tb ();
   wire VGND = 1'b0;
 `endif
 
+  wire [5:0] colour = {uo_out[0], uo_out[4], uo_out[1], uo_out[5], uo_out[2], uo_out[6]};
+  wire hsync = uo_out[7];
+  wire vsync = uo_out[3];
+  
   // Replace tt_um_example with your module name:
-  tt_um_example user_project (
+  tt_um_sprite_rom_test user_project (
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
