@@ -72,17 +72,17 @@
 
   "//": "Macro",
   "MACROS": {
-    "flag_rom": {
+    "tt_rom": {
       "instances": {
         "sprite": {
           "location": [15.5, 0.1],
           "orientation": "FS"
         }
       },
-      "gds": ["dir::../macro/flag_rom.gds"],
-      "lef": ["dir::../macro/flag_rom.lef"],
+      "gds": ["dir::../macro/tt_rom.gds"],
+      "lef": ["dir::../macro/tt_rom.lef"],
       "lib": {
-        "*": ["dir::../macro/flag_rom.lib"]
+        "*": ["dir::../macro/tt_rom.lib"]
       }
     },
     "incrementer": {

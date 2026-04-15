@@ -6,7 +6,7 @@ SIM ?= icarus
 FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v flag_rom.v incrementer.v vga_timing.v
+PROJECT_SOURCES = project.v tt_rom.v incrementer.v vga_timing.v
 
 ifneq ($(GATES),yes)
 
@@ -27,7 +27,7 @@ COMPILE_ARGS    += -DUNIT_DELAY=\#1
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 
-VERILOG_SOURCES += $(SRC_DIR)/flag_rom.v $(SRC_DIR)/incrementer.v
+VERILOG_SOURCES += $(SRC_DIR)/tt_rom.v $(SRC_DIR)/incrementer.v
 
 # this gets copied in by the GDS action workflow
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
