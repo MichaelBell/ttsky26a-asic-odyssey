@@ -67,7 +67,7 @@ MACRO tt_um_rebelmike_asic_odyssey
   PIN rst_n
     DIRECTION INPUT ;
     USE SIGNAL ;
-    ANTENNAGATEAREA 0.213000 ;
+    ANTENNAGATEAREA 0.196500 ;
     PORT
       LAYER met4 ;
         RECT 141.070 110.520 141.370 111.520 ;
@@ -407,11 +407,11 @@ MACRO tt_um_rebelmike_asic_odyssey
       LAYER li1 ;
         RECT 0.520 1.195 159.795 108.885 ;
       LAYER met1 ;
-        RECT 0.070 0.040 160.930 109.440 ;
+        RECT 0.520 0.040 160.930 109.780 ;
       LAYER met2 ;
-        RECT 0.090 0.010 160.910 110.685 ;
+        RECT 1.010 0.010 160.910 110.685 ;
       LAYER met3 ;
-        RECT 0.065 0.175 160.935 110.665 ;
+        RECT 0.270 0.010 160.935 110.665 ;
       LAYER met4 ;
         RECT 0.295 110.120 30.270 110.665 ;
         RECT 31.370 110.120 33.030 110.665 ;
@@ -467,7 +467,7 @@ MACRO tt_um_rebelmike_asic_odyssey
         RECT 92.950 1.660 129.550 109.860 ;
         RECT 131.950 1.660 132.550 109.860 ;
         RECT 134.950 1.660 160.705 109.860 ;
-        RECT 0.295 0.175 160.705 1.660 ;
+        RECT 0.295 0.005 160.705 1.660 ;
   END
 END tt_um_rebelmike_asic_odyssey
 END LIBRARY

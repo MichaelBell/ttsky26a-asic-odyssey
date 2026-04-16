@@ -107,7 +107,7 @@
     "DIODE_CELL": "sky130_fd_sc_hd__diode_2/DIODE",
     "WELLTAP_CELL": "sky130_fd_sc_hd__tapvpwrvgnd_1",
     "ENDCAP_CELL": "sky130_fd_sc_hd__tapvpwrvgnd_1",
-    "DESIGN_DIR": "/home/mdb36/tt/ttsky-sprite-rom/src",
+    "DESIGN_DIR": "/home/mdb36/tt/ttsky26a-asic-odyssey/src",
     "PDK_ROOT": "/home/mdb36/ttsetup/pdk/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
     "DESIGN_NAME": "tt_um_rebelmike_asic_odyssey",
     "PDK": "sky130A",
@@ -126,10 +126,10 @@
     "MACROS": {
         "tt_rom": {
             "gds": [
-                "/home/mdb36/tt/ttsky-sprite-rom/macro/tt_rom.gds"
+                "/home/mdb36/tt/ttsky26a-asic-odyssey/macro/tt_rom.gds"
             ],
             "lef": [
-                "/home/mdb36/tt/ttsky-sprite-rom/macro/tt_rom.lef"
+                "/home/mdb36/tt/ttsky26a-asic-odyssey/macro/tt_rom.lef"
             ],
             "instances": {
                 "sprite": {
@@ -146,7 +146,7 @@
             "spef": {},
             "lib": {
                 "*": [
-                    "/home/mdb36/tt/ttsky-sprite-rom/macro/tt_rom.lib"
+                    "/home/mdb36/tt/ttsky26a-asic-odyssey/macro/tt_rom.lib"
                 ]
             },
             "spice": [],
@@ -155,10 +155,10 @@
         },
         "incrementer": {
             "gds": [
-                "/home/mdb36/tt/ttsky-sprite-rom/macro/incrementer.gds"
+                "/home/mdb36/tt/ttsky26a-asic-odyssey/macro/incrementer.gds"
             ],
             "lef": [
-                "/home/mdb36/tt/ttsky-sprite-rom/macro/incrementer.lef"
+                "/home/mdb36/tt/ttsky26a-asic-odyssey/macro/incrementer.lef"
             ],
             "instances": {
                 "timing.counter": {
@@ -226,11 +226,11 @@
     "RUN_EQY": false,
     "RUN_LINTER": true,
     "VERILOG_FILES": [
-        "/home/mdb36/tt/ttsky-sprite-rom/src/project.v",
-        "/home/mdb36/tt/ttsky-sprite-rom/src/vga_timing.v",
-        "/home/mdb36/tt/ttsky-sprite-rom/src/incrementer.v",
-        "/home/mdb36/tt/ttsky-sprite-rom/src/tt_rom.v",
-        "/home/mdb36/tt/ttsky-sprite-rom/src/cell_auto.v"
+        "/home/mdb36/tt/ttsky26a-asic-odyssey/src/project.v",
+        "/home/mdb36/tt/ttsky26a-asic-odyssey/src/vga_timing.v",
+        "/home/mdb36/tt/ttsky26a-asic-odyssey/src/incrementer.v",
+        "/home/mdb36/tt/ttsky26a-asic-odyssey/src/tt_rom.v",
+        "/home/mdb36/tt/ttsky26a-asic-odyssey/src/cell_auto.v"
     ],
     "VERILOG_INCLUDE_DIRS": null,
     "VERILOG_POWER_DEFINE": "USE_POWER_PINS",
@@ -361,7 +361,7 @@
     "PDN_CORE_VERTICAL_LAYER": null,
     "PDN_EXTEND_TO": "core_ring",
     "PDN_ENABLE_PINS": true,
-    "PDN_CFG": "/home/mdb36/tt/ttsky-sprite-rom/src/pdn_cfg.tcl",
+    "PDN_CFG": "/home/mdb36/tt/ttsky26a-asic-odyssey/src/pdn_cfg.tcl",
     "ROUTING_OBSTRUCTIONS": null,
     "RT_CLOCK_MIN_LAYER": null,
     "RT_CLOCK_MAX_LAYER": null,
@@ -391,7 +391,7 @@
     "PL_KEEP_RESIZE_BELOW_OVERFLOW": null,
     "IO_PIN_PLACEMENT_MODE": "matching",
     "IO_PIN_ORDER_CFG": null,
-    "FP_DEF_TEMPLATE": "/home/mdb36/tt/ttsky-sprite-rom/tt/tech/sky130A/def/tt_block_1x1_pg.def",
+    "FP_DEF_TEMPLATE": "/home/mdb36/tt/ttsky26a-asic-odyssey/tt/tech/sky130A/def/tt_block_1x1_pg.def",
     "IO_PIN_H_LAYER": "met3",
     "IO_PIN_V_LAYER": "met2",
     "IO_PIN_V_EXTENSION": 0,

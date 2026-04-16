@@ -13,10 +13,8 @@ module tt_um_rebelmike_asic_odyssey (
     output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
     input  wire       clk,      // clock
-
-/* verilator lint_off SYNCASYNCNET */    
     input  wire       rst_n     // reset_n - low to reset
-/* verilator lint_on SYNCASYNCNET */    
+
 `ifdef VERILATOR_SIM
 ,
   output wire [9:0] pix_x,
@@ -109,11 +107,16 @@ default: tt_colour = 6'hxx;
     .q(cell_state)
   );
 
+`ifdef SIM
   reg cell_clk;
   always @(posedge hsync_r) begin
     if (counter[2:0] == pix_y[2:0]) cell_clk <= 1;
     else cell_clk <= 0;
   end
+`else
+  wire cell_clk;
+  sky130_fd_sc_hd__dlclkp_2 CG( .CLK(clk), .GCLK(cell_clk), .GATE(counter[2:0] == pix_y[2:0] && !hsync_r && hsync) );
+`endif
 
   wire [5:0] cell_x = pix_x[9:4] - 6'b010010;
   wire [3:0] cell_idx = cell_x[3:0];
@@ -149,10 +152,10 @@ default: tt_colour = 6'hxx;
     end
   end
 
-  always @(posedge vsync_r or negedge rst_n) begin
+  always @(posedge clk) begin
     if (~rst_n) begin
-      counter <= 600;
-    end else begin
+      counter <= {~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
+    end else if (vsync && !vsync_r) begin
       counter <= counter - 1;
       if (counter == 0) counter <= 600;
     end
