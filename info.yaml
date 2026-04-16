@@ -1,17 +1,17 @@
 # Tiny Tapeout project information
 project:
-  title:        "Sprite ROM test"      # Project title
+  title:        "2026: An ASIC Odyssey"      # Project title
   author:       "Mike Bell"      # Your name
   discord:      "rebelmike"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "Test of paletted sprite from ROM"      # One line description of what your project does
+  description:  "Demo for ttsky26a competition"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     38250000       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     36000000       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_sprite_rom_test"
+  top_module:  "tt_um_rebelmike_asic_odyssey"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
@@ -21,6 +21,7 @@ project:
     - "vga_timing.v"
     - "incrementer.v"
     - "tt_rom.v"
+    - "cell_auto.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).

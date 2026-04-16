@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_sprite_rom_test (
+module tt_um_rebelmike_asic_odyssey (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -70,7 +70,7 @@ module tt_um_sprite_rom_test (
 12: tt_colour = 6'h31;
 13: tt_colour = 6'h36;
 14: tt_colour = 6'h02;
-default: tt_colour = 6'h00;
+default: tt_colour = 6'hxx;
     endcase
   end
 
@@ -98,10 +98,41 @@ default: tt_colour = 6'h00;
   wire is_star = {lfsr[19:11]} == 0 && (lfsr[10:4] ^ counter[8:2]) != 0;
   wire [5:0] star_col = lfsr[3:0] == 0 ? 6'b110101 :
                         lfsr[3:0] == 2 ? 6'b010111 :
-                        lfsr[3:0] == 1 ? 6'b111100 : 6'b111111;  
+                        lfsr[3:0] == 1 ? 6'b111100 : 6'b111111;
 
-  wire is_tt = (pix_x[9:6] == 4'b0111) && (adj_y[10:6] == 5'b00010);
-  wire [5:0] colour = is_tt ? tt_colour : is_star ? star_col : 6'h00;
+  wire [15:0] cell_state;
+  wire cell_en = pix_y > (counter - 10'd64);
+  wire cell_rst_n = rst_n && cell_en;
+  cell_auto #(.CELLS(16), .RULE(30)) cells(
+    .clk(cell_clk),
+    .rst_n(cell_rst_n),
+    .q(cell_state)
+  );
+
+  reg cell_clk;
+  always @(posedge hsync_r) begin
+    if (counter[2:0] == pix_y[2:0]) cell_clk <= 1;
+    else cell_clk <= 0;
+  end
+
+  wire [5:0] cell_x = pix_x[9:4] - 6'b010010;
+  wire [3:0] cell_idx = cell_x[3:0];
+  wire is_cell = pix_y > (counter + 10'd96) && cell_x[5:4] == 2'b00;
+  reg was_cell;
+  always @(posedge clk) if (pix_x[0]) was_cell <= cell_val;
+
+  wire cell_val = is_cell ? cell_state[cell_idx] : cell_state[0];
+
+  wire is_tt_sq = (pix_x[9:6] == 4'b0111) && (adj_y[10:6] == 5'b00010);
+  wire is_tt = is_tt_sq && (rom_q != 4'hf);
+  reg was_tt_sq;
+  always @(posedge clk) if (pix_x[0]) was_tt_sq <= is_tt_sq;
+
+  wire [1:0] cell_col = cell_val ? (!was_cell && !was_tt_sq ? 2'b00 : 2'b01) : (was_cell && !was_tt_sq ? 2'b11 : 2'b10);
+
+  wire [5:0] colour = is_tt ? tt_colour : 
+                      is_cell ? {cell_col, cell_col, cell_col} :
+                      is_star ? star_col : 6'h00;
 
   always @(posedge clk) begin
     hsync_r <= hsync;

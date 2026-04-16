@@ -109,9 +109,9 @@
     "ENDCAP_CELL": "sky130_fd_sc_hd__tapvpwrvgnd_1",
     "DESIGN_DIR": "/home/mdb36/tt/ttsky-sprite-rom/src",
     "PDK_ROOT": "/home/mdb36/ttsetup/pdk/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
-    "DESIGN_NAME": "tt_um_sprite_rom_test",
+    "DESIGN_NAME": "tt_um_rebelmike_asic_odyssey",
     "PDK": "sky130A",
-    "CLOCK_PERIOD": 20,
+    "CLOCK_PERIOD": 25,
     "CLOCK_PORT": "clk",
     "CLOCK_NET": null,
     "VDD_NETS": null,
@@ -185,7 +185,7 @@
     "EXTRA_CDLS": null,
     "EXTRA_LIBS": null,
     "EXTRA_GDS": null,
-    "FALLBACK_SDC": "/nix/store/a77ardzm5sr3clx5bsh9vb0d7fqh317m-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc",
+    "FALLBACK_SDC": "/nix/store/3yacyja8m587kid817phq5rcss7465qz-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc",
     "PAD_GDS": null,
     "PAD_LEFS": null,
     "PAD_VERILOG_MODELS": null,
@@ -229,7 +229,8 @@
         "/home/mdb36/tt/ttsky-sprite-rom/src/project.v",
         "/home/mdb36/tt/ttsky-sprite-rom/src/vga_timing.v",
         "/home/mdb36/tt/ttsky-sprite-rom/src/incrementer.v",
-        "/home/mdb36/tt/ttsky-sprite-rom/src/tt_rom.v"
+        "/home/mdb36/tt/ttsky-sprite-rom/src/tt_rom.v",
+        "/home/mdb36/tt/ttsky-sprite-rom/src/cell_auto.v"
     ],
     "VERILOG_INCLUDE_DIRS": null,
     "VERILOG_POWER_DEFINE": "USE_POWER_PINS",
@@ -304,7 +305,6 @@
     "PDN_CONNECT_MACROS_TO_GRID": true,
     "PDN_MACRO_CONNECTIONS": null,
     "PDN_ENABLE_GLOBAL_CONNECTIONS": true,
-    "FP_DEF_TEMPLATE": "/home/mdb36/tt/ttsky-sprite-rom/tt/tech/sky130A/def/tt_block_1x1_pg.def",
     "STA_EXTRA_CORNER_TCL_FILE": null,
     "DEDUPLICATE_CORNERS": false,
     "STA_MACRO_PRIORITIZE_NL": true,
@@ -382,7 +382,7 @@
     "RSZ_DONT_TOUCH_RX": "$^",
     "RSZ_DONT_TOUCH_LIST": null,
     "RSZ_CORNERS": null,
-    "PL_TARGET_DENSITY_PCT": 60,
+    "PL_TARGET_DENSITY_PCT": 80,
     "PL_SKIP_INITIAL_PLACEMENT": false,
     "PL_WIRE_LENGTH_COEF": 0.25,
     "PL_MIN_PHI_COEFFICIENT": null,
@@ -391,6 +391,7 @@
     "PL_KEEP_RESIZE_BELOW_OVERFLOW": null,
     "IO_PIN_PLACEMENT_MODE": "matching",
     "IO_PIN_ORDER_CFG": null,
+    "FP_DEF_TEMPLATE": "/home/mdb36/tt/ttsky-sprite-rom/tt/tech/sky130A/def/tt_block_1x1_pg.def",
     "IO_PIN_H_LAYER": "met3",
     "IO_PIN_V_LAYER": "met2",
     "IO_PIN_V_EXTENSION": 0,
@@ -1478,6 +1479,6 @@
         "flow": null,
         "substituting_steps": null,
         "step": null,
-        "librelane_version": "3.0.0rc1"
+        "librelane_version": "3.0.2"
     }
 }

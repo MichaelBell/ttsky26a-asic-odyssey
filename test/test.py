@@ -11,8 +11,8 @@ from PIL import Image
 async def test_sync(dut):
     dut._log.info("Start")
 
-    # Set the clock period to 26 us (~38.5MHz)
-    clock = Clock(dut.clk, 26, unit="us")
+    # Set the clock period to 27.78 us (~36MHz)
+    clock = Clock(dut.clk, 27.78, unit="us")
     cocotb.start_soon(clock.start())
 
     # Reset

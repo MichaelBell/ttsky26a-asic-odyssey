@@ -36,7 +36,7 @@ module tb ();
   wire [1:0] blue = colour[1:0];
 
   // Replace tt_um_example with your module name:
-  tt_um_sprite_rom_test user_project (
+  tt_um_rebelmike_asic_odyssey user_project (
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
