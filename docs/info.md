@@ -9,11 +9,11 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Displays a tiled sprite from ROM on VGA.  More todo.
+An LFSR starfield in the background, with a cellular automata "monolith" in the foreground, complete with TT logo sticker that comes from a ROM.
 
 ## How to test
 
-Provide a clock, see if there's some output
+Provide a ~36MHz clock, see if there's some output
 
 ## External hardware
 
