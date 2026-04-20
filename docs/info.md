@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-An LFSR starfield in the background, with a cellular automata "monolith" in the foreground, complete with TT logo sticker that comes from a ROM.
+An LFSR starfield in the background, with a cellular automata "monolith" in the foreground, complete with TT logo "sticker" that comes from a ROM.
 
 ## How to test
 
-Provide a ~36MHz clock, see if there's some output
+Set inputs to 0, provide a ~36MHz clock, see if there's some output
 
 ## External hardware
 
-VGA PMOD
+VGA PMOD, Audio PMOD

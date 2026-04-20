@@ -5,10 +5,14 @@ module incrementer (
     inout wire VPWR,
     inout wire VGND,
 `endif
+/* verilator lint_off UNUSEDSIGNAL */
     input wire clk,
     input wire rst_n,
     input wire inc,
+/* verilator lint_on UNUSEDSIGNAL */
+/* verilator lint_off UNDRIVEN */
     output reg [19:0] q
+/* verilator lint_on UNDRIVEN */
 );
 
 `ifdef SIM

@@ -16,8 +16,8 @@ if not os.path.exists("output"):
 async def test_frames(dut):
     dut._log.info("Start")
 
-    # Set the clock period to 27.78 us (~36MHz)
-    clock = Clock(dut.clk, 27.78, unit="us")
+    # Set the clock period to 27.78 ns (~36MHz)
+    clock = Clock(dut.clk, 27.78, unit="ns")
     cocotb.start_soon(clock.start())
 
     for k in (0, 2, 3):

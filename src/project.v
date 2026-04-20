@@ -13,7 +13,9 @@ module tt_um_rebelmike_asic_odyssey (
     output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
     input  wire       clk,      // clock
+/* verilator lint_off SYNCASYNCNET */    
     input  wire       rst_n     // reset_n - low to reset
+/* verilator lint_on SYNCASYNCNET */    
 
 `ifdef VERILATOR_SIM
 ,
@@ -35,11 +37,22 @@ module tt_um_rebelmike_asic_odyssey (
   reg [1:0] B;
 `endif 
 
+`ifdef SIM
+  wire bclk = clk;
+`else
+  wire bclk;
+  /* verilator lint_off PINMISSING */
+  sky130_fd_sc_hd__clkbuf_16 i_clk_buf( .X(bclk), .A(clk));
+  /* verilator lint_on PINMISSING */
+`endif
+
+
   wire [10:0] adj_y;
   wire hsync;
   wire vsync;
 
-  reg [9:0] counter;
+  reg [10:0] counter;
+  wire [9:0] adj_counter = {10{counter[10]}} & counter[9:0];
   reg hsync_r;
   reg vsync_r;
 
@@ -73,7 +86,7 @@ default: tt_colour = 6'hxx;
   end
 
   vga_timing timing(
-    .clk(clk),
+    .clk(bclk),
     .rst_n(rst_n),
     .active(video_active),
     .x(pix_x),
@@ -83,23 +96,48 @@ default: tt_colour = 6'hxx;
   );
 
   // Starfield
-  wire star_reset = (!hsync && pix_y == counter);
+  wire star_reset = (!hsync && pix_y == adj_counter);
 
   reg [19:0] lfsr;
-  always @(posedge clk) begin
+`ifdef SIM
+  always @(posedge bclk) begin
     if (!rst_n || star_reset) lfsr <= 0;
     else if (video_active) begin
       lfsr <= {lfsr[0], lfsr[19], ~(lfsr[18] ^ lfsr[0]), ~(lfsr[17] ^ lfsr[0]), lfsr[16], ~(lfsr[15] ^ lfsr[0]), lfsr[14:1]};
     end
   end
-  
+`else
+  wire [14:0] lfsr_buf;
+  always @(posedge bclk) begin
+    if (!rst_n || star_reset) lfsr[18:14] <= 0;
+    else if (video_active) begin
+      lfsr[18:14] <= {lfsr[19], ~(lfsr[18] ^ lfsr[0]), ~(lfsr[17] ^ lfsr[0]), lfsr[16], ~(lfsr[15] ^ lfsr[0])};
+    end
+  end
+  /* verilator lint_off PINMISSING */
+  sky130_fd_sc_hd__buf_1 i_lfsrbuf[14:0] ( .X(lfsr_buf[14:0]), .A(lfsr[14:0]) );
+  /* verilator lint_on PINMISSING */
+  always @(posedge bclk) begin
+    if (!rst_n || star_reset) lfsr[19] <= 0;
+    else if (video_active) begin
+      lfsr[19] <= lfsr_buf[0];
+    end
+  end
+  always @(posedge bclk) begin
+    if (!rst_n || star_reset) lfsr[13:0] <= 0;
+    else if (video_active) begin
+      lfsr[13:0] <= lfsr_buf[14:1];
+    end
+  end
+`endif
+
   wire is_star = {lfsr[19:11]} == 0 && (lfsr[10:4] ^ counter[8:2]) != 0;
   wire [5:0] star_col = lfsr[3:0] == 0 ? 6'b110101 :
                         lfsr[3:0] == 2 ? 6'b010111 :
                         lfsr[3:0] == 1 ? 6'b111100 : 6'b111111;
 
   wire [15:0] cell_state;
-  wire cell_en = pix_y > (counter - 10'd64);
+  wire cell_en = pix_y > adj_counter;
   wire cell_rst_n = rst_n && cell_en;
   cell_auto #(.CELLS(16), .RULE(30)) cells(
     .clk(cell_clk),
@@ -110,26 +148,29 @@ default: tt_colour = 6'hxx;
 `ifdef SIM
   reg cell_clk;
   always @(posedge hsync_r) begin
-    if (counter[2:0] == pix_y[2:0]) cell_clk <= 1;
+    if (adj_counter[2:0] == pix_y[2:0]) cell_clk <= 1;
     else cell_clk <= 0;
   end
 `else
   wire cell_clk;
-  sky130_fd_sc_hd__dlclkp_2 CG( .CLK(clk), .GCLK(cell_clk), .GATE(counter[2:0] == pix_y[2:0] && !hsync_r && hsync) );
+  //wire cell_gclk;
+  /* verilator lint_off PINMISSING */
+  sky130_fd_sc_hd__dlclkp_2 CG( .CLK(bclk), .GCLK(cell_clk), .GATE(adj_counter[2:0] == pix_y[2:0] && !hsync_r && hsync) );
+  //sky130_fd_sc_hd__clkbuf_16 i_cellclk_buf( .X(cell_clk), .A(cell_gclk));
+  /* verilator lint_on PINMISSING */
 `endif
 
   wire [5:0] cell_x = pix_x[9:4] - 6'b010010;
   wire [3:0] cell_idx = cell_x[3:0];
-  wire is_cell = pix_y > (counter + 10'd96) && cell_x[5:4] == 2'b00;
-  reg was_cell;
-  always @(posedge clk) if (pix_x[0]) was_cell <= cell_val;
-
+  wire is_cell = pix_y > (adj_counter + 10'd96) && cell_x[5:4] == 2'b00;
   wire cell_val = is_cell ? cell_state[cell_idx] : cell_state[0];
+  reg was_cell;
+  always @(posedge bclk) if (pix_x[0]) was_cell <= cell_val;
 
   wire is_tt_sq = (pix_x[9:6] == 4'b0111) && (adj_y[10:6] == 5'b00010);
   wire is_tt = is_tt_sq && (rom_q != 4'hf);
   reg was_tt_sq;
-  always @(posedge clk) if (pix_x[0]) was_tt_sq <= is_tt_sq;
+  always @(posedge bclk) if (pix_x[0]) was_tt_sq <= is_tt_sq;
 
   wire [1:0] cell_col = cell_val ? (!was_cell && !was_tt_sq ? 2'b00 : 2'b01) : (was_cell && !was_tt_sq ? 2'b11 : 2'b10);
 
@@ -137,7 +178,7 @@ default: tt_colour = 6'hxx;
                       is_cell ? {cell_col, cell_col, cell_col} :
                       is_star ? star_col : 6'h00;
 
-  always @(posedge clk) begin
+  always @(posedge bclk) begin
     hsync_r <= hsync;
     vsync_r <= vsync;
 
@@ -146,27 +187,38 @@ default: tt_colour = 6'hxx;
       G <= 0;
       B <= 0;
     end else begin
-      R <= colour[5:4];
-      G <= colour[3:2];
-      B <= colour[1:0];
+      R <= counter[10:7] == 0 ? 2'b00 : colour[5:4];
+      G <= counter[10:7] == 0 ? 2'b00 : colour[3:2];
+      B <= counter[10:7] == 0 ? 2'b00 : colour[1:0];
     end
   end
 
-  always @(posedge clk) begin
+  always @(posedge bclk) begin
     if (~rst_n) begin
-      counter <= {~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
+      counter <= {1'b1, ~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
     end else if (vsync && !vsync_r) begin
       counter <= counter - 1;
-      if (counter == 0) counter <= 600;
+      if (counter == 0) counter <= 1624;
     end
   end
 
-  assign adj_y = {1'b0, pix_y} - {1'b0, counter};
+  assign adj_y = {1'b0, pix_y} - {1'b0, adj_counter};
 
   assign uo_out = {hsync_r, B[0], G[0], R[0], vsync_r, B[1], G[1], R[1]};
 
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  wire pwm;
+  pwm_music i_music(
+        .clk(bclk),
+        .rst_n(rst_n),
+
+        .pwm(pwm),
+
+        .count({pix_y[0], pix_x}),
+        .frame(counter)
+    );
+
+  assign uio_out = {pwm, 7'd0};
+  assign uio_oe  = 8'b10000000;
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, ui_in, uio_in, 1'b0};

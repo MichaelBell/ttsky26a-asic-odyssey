@@ -22,6 +22,7 @@ project:
     - "incrementer.v"
     - "tt_rom.v"
     - "cell_auto.v"
+    - "music.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
@@ -54,7 +55,7 @@ pinout:
   uio[4]: ""
   uio[5]: ""
   uio[6]: ""
-  uio[7]: ""
+  uio[7]: "PWM audio"
 
 # Do not change!
 yaml_version: 6
