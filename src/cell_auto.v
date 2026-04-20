@@ -16,18 +16,18 @@ module cell_auto #(parameter CELLS=30, parameter RULE=30) (
   genvar i;
   generate
     for (i = 1; i < CELLS-1; i = i + 1) begin
-      always @(posedge clk) begin
+      always @(posedge clk or negedge rst_n) begin
         if (!rst_n) q[i] <= (i == CELLS / 2) ? 1 : 0;
         else q[i] <= rule[{q[i+1], q[i], q[i-1]}];
       end
     end
   endgenerate
 
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rst_n) begin
       if (!rst_n) q[0] <= 0;
       else q[0] <= rule[{q[1], q[0], q[CELLS-1]}];
     end
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rst_n) begin
       if (!rst_n) q[CELLS-1] <= 0;
       else q[CELLS-1] <= rule[{q[0], q[CELLS-1], q[CELLS-2]}];
     end

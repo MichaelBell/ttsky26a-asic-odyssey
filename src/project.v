@@ -51,7 +51,7 @@ module tt_um_rebelmike_asic_odyssey (
   wire hsync;
   wire vsync;
 
-  reg [10:0] counter;
+  wire [10:0] counter;
   wire [9:0] adj_counter = {10{counter[10]}} & counter[9:0];
   reg hsync_r;
   reg vsync_r;
@@ -193,21 +193,24 @@ default: tt_colour = 6'hxx;
     end
   end
 
-  always @(posedge bclk) begin
+  reg [10:0] counter_r;
+  wire [10:0] next_counter_r = counter_r + 1;
+  always @(posedge bclk or negedge rst_n) begin
     if (~rst_n) begin
-      counter <= {1'b1, ~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
+      counter_r <= 11'b00110100111; //{1'b1, ~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
     end else if (vsync && !vsync_r) begin
-      counter <= counter - 1;
-      if (counter == 0) counter <= 1624;
+      counter_r <= next_counter_r;
+      if (next_counter_r == 0) counter_r <= 11'b00110100111;
     end
   end
+  assign counter = ~counter_r ^ {1'b0, ui_in[7:4], 6'b000000};
 
   assign adj_y = {1'b0, pix_y} - {1'b0, adj_counter};
 
   assign uo_out = {hsync_r, B[0], G[0], R[0], vsync_r, B[1], G[1], R[1]};
 
   wire pwm;
-  pwm_music i_music(
+  music i_music(
         .clk(bclk),
         .rst_n(rst_n),
 

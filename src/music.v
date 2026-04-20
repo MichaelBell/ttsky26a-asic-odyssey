@@ -1,6 +1,6 @@
 `default_nettype none
 
-module pwm_music (
+module music (
     input wire clk,
     input wire rst_n,
 
