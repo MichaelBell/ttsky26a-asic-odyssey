@@ -1,0 +1,161 @@
+library (sky130_s47_lib) {
+  delay_model : "table_lookup";
+  library_features : "report_delay_calculation";
+  voltage_unit : "1V";
+  current_unit : "1mA";
+  resistance_unit : "1ohm";
+  capacitive_load_unit (1, fF);
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  slew_lower_threshold_pct_rise : 10;
+  slew_lower_threshold_pct_fall : 10;
+  slew_upper_threshold_pct_rise : 90;
+  slew_upper_threshold_pct_fall : 90;
+  slew_derate_from_library : 1.0;
+  default_cell_leakage_power : 0.0;
+  default_leakage_power_density : 0.0;
+  default_input_pin_cap : 1.0;
+  default_inout_pin_cap : 1.0;
+  default_output_pin_cap : 0.0;
+  default_max_transition : 0.5;
+  default_fanout_load : 1.0;
+  default_max_fanout : 4.0;
+  default_connection_class : "universal";
+  nom_process : 1.0;
+  nom_temperature : 25.0;
+  nom_voltage : 1.8;
+  voltage_map ("VPWR", 1.8);
+  voltage_map ("VGND", 0.0);
+  type (data_bus) {
+    base_type : "array";
+    data_type : "bit";
+    bit_width : 20;
+    bit_from : 19;
+    bit_to : 0;
+    downto : true;
+  }
+  cell (incrementer) {
+    dont_touch : true;
+    dont_use : true;
+    map_only : true;
+    interface_timing : true;
+    pg_pin (VPWR) {
+      voltage_name : "VPWR";
+      pg_type : "primary_power";
+    }
+    pg_pin (VGND) {
+      voltage_name : "VGND";
+      pg_type : "primary_ground";
+    }
+    bus (q) {
+      bus_type : "data_bus";
+      direction : "output";
+      timing () {
+        related_pin : "clk";
+        timing_type : "rising_edge";
+        timing_sense : "non_unate";
+        cell_rise (scalar) {
+          values ("1.0");
+        }
+        cell_fall (scalar) {
+          values ("1.0");
+        }
+        rise_transition (scalar) {
+          values ("0.2");
+        }
+        fall_transition (scalar) {
+          values ("0.2");
+        }
+      }
+      timing () {
+        related_pin : "rst_n";
+        timing_type : "falling_edge";
+        timing_sense : "positive_unate";
+        timing_type : "clear";
+        cell_fall (scalar) {
+          values ("1.0");
+        }
+        fall_transition (scalar) {
+          values ("0.2");
+        }
+      }
+    }
+    pin (inc) {
+      direction : "input";
+      capacitance : 0.5;
+      max_transition : 0.3;
+      timing () {
+        related_pin : "clk";
+        timing_type : "setup_rising";
+        rise_constraint (scalar) {
+          values ("8.0");
+        }
+        fall_constraint (scalar) {
+          values ("8.0");
+        }
+      }
+      timing () {
+        related_pin : "clk";
+        timing_type : "hold_rising";
+        rise_constraint (scalar) {
+          values ("0.1");
+        }
+        fall_constraint (scalar) {
+          values ("0.1");
+        }
+      }
+    }
+    pin (clk) {
+      clock : true;
+      direction : "input";
+      capacitance : 0.5;
+      max_transition : 0.3;
+      timing () {
+        timing_type : "min_pulse_width";
+        rise_constraint (scalar) {
+          values ("5.0");
+        }
+        fall_constraint (scalar) {
+          values ("5.0");
+        }
+      }
+      timing () {
+        timing_type : "minimum_period";
+        rise_constraint (scalar) {
+          values ("10.0");
+        }
+        fall_constraint (scalar) {
+          values ("10.0");
+        }
+      }
+      timing () {
+        timing_sense : "positive_unate";
+        timing_type : "min_clock_tree_path";
+        cell_rise (scalar) {
+          values ("0.2");
+        }
+        cell_fall (scalar) {
+          values ("0.2");
+        }
+      }
+      timing () {
+        timing_sense : "negative_unate";
+        timing_type : "min_clock_tree_path";
+        cell_rise (scalar) {
+          values ("0.2");
+        }
+        cell_fall (scalar) {
+          values ("0.2");
+        }
+      }
+    }
+    pin (rst_n) {
+      clock : true;
+      direction : "input";
+      capacitance : 0.5;
+      max_transition : 0.3;
+    }
+  }
+}

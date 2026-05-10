@@ -96,9 +96,21 @@
         }
       },
       "gds": ["dir::../macro/incrementer.gds"],
-      "lef": ["dir::../macro/incrementer.lef"]      
+      "lef": ["dir::../macro/incrementer.lef"],
+      "lib": {
+        "*": ["dir::../macro/incrementer.lib"]
+      }
     }
   },
+
+  "RSZ_CORNERS": [
+    "max_tt_025C_1v80",
+    "nom_tt_025C_1v80",
+    "min_tt_025C_1v80",
+    "min_ff_n40C_1v95",
+    "nom_ff_n40C_1v95",
+    "max_ff_n40C_1v95"
+  ],
 
   "//": "Macro power",
 
