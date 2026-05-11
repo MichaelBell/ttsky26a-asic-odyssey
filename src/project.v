@@ -198,7 +198,7 @@ default: tt_colour = 6'hxx;
   wire [10:0] next_counter_r = counter_r + 1;
   always @(posedge bclk or negedge rst_n) begin
     if (~rst_n) begin
-      counter_r <= 11'b00110100111; //{1'b1, ~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
+      counter_r <= 11'b00101001111; //{1'b1, ~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
     end else if (vsync && !vsync_r) begin
       counter_r <= next_counter_r;
       if (next_counter_r == 0) counter_r <= 11'b00101001111;
