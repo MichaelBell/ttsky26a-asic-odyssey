@@ -20,7 +20,7 @@ async def test_frames(dut):
     clock = Clock(dut.clk, 27.78, unit="ns")
     cocotb.start_soon(clock.start())
 
-    for k in (0, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15):
+    for k in (0, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15):
         # Reset
         dut._log.info("Reset")
         dut.ena.value = 1

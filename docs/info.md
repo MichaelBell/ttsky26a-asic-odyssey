@@ -9,7 +9,7 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-An LFSR starfield in the background, with a cellular automata "monolith" in the foreground, complete with TT logo "sticker" that comes from a ROM.  A very basic Space Odyssey inspired theme is plays.
+An LFSR starfield in the background, with a cellular automata "monolith" in the foreground, complete with TT logo "sticker" that comes from a ROM.  A 2001: A Space Odyssey inspired theme plays.
 
 ## How to test
 
