@@ -65,9 +65,9 @@ module music (
 6: divider_rom = 10'd213; // E
 5: divider_rom = 10'd180; // G
 4: divider_rom = 10'd180; // G
-3: divider_rom = 10'd180; // G
-2: divider_rom = 10'd269;
-1: divider_rom = 10'd269;
+3: divider_rom = 10'd134; // high C
+2: divider_rom = 10'd134;
+1: divider_rom = 10'd134;
 
 default: divider_rom = 10'dx;
         endcase

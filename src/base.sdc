@@ -6,12 +6,12 @@ set_clock_uncertainty 2.5 -rise_from clk -fall_to clk
 set_clock_uncertainty 2 -fall_from clk -rise_to clk
 
 # Fix reset delay
-set_input_delay 1.5 -clock [get_clocks $::env(CLOCK_PORT)] {rst_n}
+set_input_delay 3.5 -clock [get_clocks $::env(CLOCK_PORT)] {rst_n}
 
 # Longer delays for input IOs as we expect to drive them on clock falling edge
 # Note "setup" is actually 1 clock cycle minus setup, so this requires a setup
-# period of 35% of the clock cycle
-set input_setup_delay_value [expr $::env(CLOCK_PERIOD) * 0.65]
+# period of 95% of the clock cycle (we do not expect inputs to change while the design is running)
+set input_setup_delay_value [expr $::env(CLOCK_PERIOD) * 0.05]
 set input_hold_delay_value [expr $::env(CLOCK_PERIOD) * 0.24]
 set_input_delay -clock [get_clocks $::env(CLOCK_PORT)] -max $input_setup_delay_value {uio_in ui_in}
 set_input_delay -clock [get_clocks $::env(CLOCK_PORT)] -min $input_hold_delay_value {uio_in ui_in}

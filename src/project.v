@@ -52,7 +52,7 @@ module tt_um_rebelmike_asic_odyssey (
   wire vsync;
 
   wire [10:0] counter;
-  wire [9:0] adj_counter = {10{counter[10]}} & counter[9:0];
+  wire [9:0] adj_counter = {10{counter[10] | counter[9]}} & {counter[10:9] - 2'b01, counter[8:1]};
   reg hsync_r;
   reg vsync_r;
 
@@ -178,6 +178,7 @@ default: tt_colour = 6'hxx;
                       is_cell ? {cell_col, cell_col, cell_col} :
                       is_star ? star_col : 6'h00;
 
+  wire end_blank = counter[10:6] == 0;
   always @(posedge bclk) begin
     hsync_r <= hsync;
     vsync_r <= vsync;
@@ -187,9 +188,9 @@ default: tt_colour = 6'hxx;
       G <= 0;
       B <= 0;
     end else begin
-      R <= counter[10:7] == 0 ? 2'b00 : colour[5:4];
-      G <= counter[10:7] == 0 ? 2'b00 : colour[3:2];
-      B <= counter[10:7] == 0 ? 2'b00 : colour[1:0];
+      R <= end_blank ? 2'b00 : colour[5:4];
+      G <= end_blank ? 2'b00 : colour[3:2];
+      B <= end_blank ? 2'b00 : colour[1:0];
     end
   end
 
@@ -200,7 +201,7 @@ default: tt_colour = 6'hxx;
       counter_r <= 11'b00110100111; //{1'b1, ~ui_in[7], ui_in[6], 8'b01011000};  // 600 if ui_in[7:6] == 0
     end else if (vsync && !vsync_r) begin
       counter_r <= next_counter_r;
-      if (next_counter_r == 0) counter_r <= 11'b00110100111;
+      if (next_counter_r == 0) counter_r <= 11'b00101001111;
     end
   end
   assign counter = ~counter_r ^ {1'b0, ui_in[7:4], 6'b000000};

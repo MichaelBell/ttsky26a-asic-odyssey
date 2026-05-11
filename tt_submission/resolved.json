@@ -111,7 +111,7 @@
     "PDK_ROOT": "/home/mdb36/ttsetup/pdk/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
     "DESIGN_NAME": "tt_um_rebelmike_asic_odyssey",
     "PDK": "sky130A",
-    "CLOCK_PERIOD": 25,
+    "CLOCK_PERIOD": 27,
     "CLOCK_PORT": "clk",
     "CLOCK_NET": null,
     "VDD_NETS": null,
