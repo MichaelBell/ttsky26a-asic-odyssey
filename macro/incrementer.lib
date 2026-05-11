@@ -52,6 +52,7 @@ library (sky130_s47_lib) {
     bus (q) {
       bus_type : "data_bus";
       direction : "output";
+      capacitance : 0.8;
       timing () {
         related_pin : "clk";
         timing_type : "rising_edge";
@@ -63,10 +64,10 @@ library (sky130_s47_lib) {
           values ("1.0");
         }
         rise_transition (scalar) {
-          values ("0.2");
+          values ("0.25");
         }
         fall_transition (scalar) {
-          values ("0.2");
+          values ("0.25");
         }
       }
       timing () {
@@ -78,13 +79,13 @@ library (sky130_s47_lib) {
           values ("1.0");
         }
         fall_transition (scalar) {
-          values ("0.2");
+          values ("0.25");
         }
       }
     }
     pin (inc) {
       direction : "input";
-      capacitance : 0.5;
+      capacitance : 0.6;
       max_transition : 0.3;
       timing () {
         related_pin : "clk";
@@ -100,10 +101,10 @@ library (sky130_s47_lib) {
         related_pin : "clk";
         timing_type : "hold_rising";
         rise_constraint (scalar) {
-          values ("0.1");
+          values ("0.3");
         }
         fall_constraint (scalar) {
-          values ("0.1");
+          values ("0.3");
         }
       }
     }
@@ -111,14 +112,14 @@ library (sky130_s47_lib) {
       clock : true;
       direction : "input";
       capacitance : 0.5;
-      max_transition : 0.3;
+      max_transition : 0.15;
       timing () {
         timing_type : "min_pulse_width";
         rise_constraint (scalar) {
-          values ("5.0");
+          values ("2.0");
         }
         fall_constraint (scalar) {
-          values ("5.0");
+          values ("2.0");
         }
       }
       timing () {
@@ -134,10 +135,10 @@ library (sky130_s47_lib) {
         timing_sense : "positive_unate";
         timing_type : "min_clock_tree_path";
         cell_rise (scalar) {
-          values ("0.2");
+          values ("0.15");
         }
         cell_fall (scalar) {
-          values ("0.2");
+          values ("0.15");
         }
       }
       timing () {

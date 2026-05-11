@@ -1,0 +1,6 @@
+Incrementer Simulation
+.include "pdk_lib.spice"
+
+* instantiate the incrementer
+*  
+Xinc Q18 Q19 Q16 Q17 Q14 Q15 Q12 Q13 Q10 Q11 Q8 Q9 Q6 Q7 Q4 Q5 Q2 Q3 Q0 Q1 VPWR VGND CLK RSTN INC  incrementer_flat

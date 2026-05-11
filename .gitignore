@@ -13,4 +13,8 @@ test/results.xml
 test/gate_level_netlist.v
 test/output/
 mag/incrementer.mag
+mag/incrementer_flat.*
+spice/incrementer_flat.spice
+spice/simulation.spice
+spice/pdk_lib.spice
 sim/obj_dir

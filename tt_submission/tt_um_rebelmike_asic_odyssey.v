@@ -632,37 +632,32 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_2 (.DIODE(_359_),
+ sky130_fd_sc_hd__diode_2 ANTENNA_2 (.DIODE(\timing.count[0] ),
     .VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_3 (.DIODE(\rom_q[1] ),
+ sky130_fd_sc_hd__diode_2 ANTENNA_3 (.DIODE(\timing.count[1] ),
     .VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_4 (.DIODE(\timing.count[1] ),
+ sky130_fd_sc_hd__diode_2 ANTENNA_4 (.DIODE(\timing.count[2] ),
     .VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_5 (.DIODE(\timing.count[2] ),
+ sky130_fd_sc_hd__diode_2 ANTENNA_5 (.DIODE(\timing.count[3] ),
     .VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_6 (.DIODE(\timing.count[3] ),
+ sky130_fd_sc_hd__diode_2 ANTENNA_6 (.DIODE(net47),
     .VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_7 (.DIODE(\rom_q[0] ),
-    .VGND(VGND),
-    .VNB(VGND),
-    .VPB(VPWR),
-    .VPWR(VPWR));
- sky130_fd_sc_hd__diode_2 ANTENNA_8 (.DIODE(\timing.count[0] ),
+ sky130_fd_sc_hd__diode_2 ANTENNA_7 (.DIODE(net53),
     .VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
@@ -755,10 +750,6 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VPB(VPWR),
     .VPWR(VPWR));
  sky130_fd_sc_hd__fill_2 FILLER_11_74 (.VGND(VGND),
-    .VNB(VGND),
-    .VPB(VPWR),
-    .VPWR(VPWR));
- sky130_fd_sc_hd__decap_3 FILLER_12_1 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -998,10 +989,6 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__decap_3 FILLER_1_141 (.VGND(VGND),
-    .VNB(VGND),
-    .VPB(VPWR),
-    .VPWR(VPWR));
  sky130_fd_sc_hd__fill_1 FILLER_1_144 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
@@ -1110,7 +1097,7 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_1 FILLER_2_135 (.VGND(VGND),
+ sky130_fd_sc_hd__fill_2 FILLER_2_135 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1155,10 +1142,6 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VPB(VPWR),
     .VPWR(VPWR));
  sky130_fd_sc_hd__fill_1 FILLER_3_141 (.VGND(VGND),
-    .VNB(VGND),
-    .VPB(VPWR),
-    .VPWR(VPWR));
- sky130_fd_sc_hd__fill_2 FILLER_3_147 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1230,6 +1213,10 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
+ sky130_fd_sc_hd__fill_2 FILLER_4_14 (.VGND(VGND),
+    .VNB(VGND),
+    .VPB(VPWR),
+    .VPWR(VPWR));
  sky130_fd_sc_hd__decap_3 FILLER_4_152 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
@@ -1278,7 +1265,7 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_1 FILLER_4_36 (.VGND(VGND),
+ sky130_fd_sc_hd__fill_2 FILLER_4_45 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1350,7 +1337,11 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_1 FILLER_5_318 (.VGND(VGND),
+ sky130_fd_sc_hd__decap_3 FILLER_5_318 (.VGND(VGND),
+    .VNB(VGND),
+    .VPB(VPWR),
+    .VPWR(VPWR));
+ sky130_fd_sc_hd__fill_1 FILLER_5_321 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1430,11 +1421,11 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_2 FILLER_7_197 (.VGND(VGND),
+ sky130_fd_sc_hd__decap_3 FILLER_7_197 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_2 FILLER_7_231 (.VGND(VGND),
+ sky130_fd_sc_hd__fill_1 FILLER_7_217 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1486,7 +1477,7 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_1 FILLER_8_235 (.VGND(VGND),
+ sky130_fd_sc_hd__decap_3 FILLER_8_233 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1494,7 +1485,7 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_2 FILLER_8_324 (.VGND(VGND),
+ sky130_fd_sc_hd__fill_1 FILLER_8_327 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
@@ -1522,7 +1513,7 @@ module tt_um_rebelmike_asic_odyssey (clk,
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
- sky130_fd_sc_hd__fill_1 FILLER_9_197 (.VGND(VGND),
+ sky130_fd_sc_hd__decap_3 FILLER_9_197 (.VGND(VGND),
     .VNB(VGND),
     .VPB(VPWR),
     .VPWR(VPWR));
