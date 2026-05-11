@@ -2,7 +2,7 @@
 
 # 2026: An ASIC Odyssey
 
-An entry for the demoscene competition.
+A 1 tile entry for the sky26a demoscene competition.
 
 - [Read the documentation for project](docs/info.md)
 
