@@ -20,11 +20,11 @@ async def test_frames(dut):
     clock = Clock(dut.clk, 27.78, unit="ns")
     cocotb.start_soon(clock.start())
 
-    for k in (0, 2, 3):
+    for k in (0, 1, 8, 9, 10, 11, 12, 13, 14, 15):
         # Reset
         dut._log.info("Reset")
         dut.ena.value = 1
-        dut.ui_in.value = k << 6
+        dut.ui_in.value = k << 4
         dut.uio_in.value = 0
         dut.rst_n.value = 0
         await ClockCycles(dut.clk, 10)

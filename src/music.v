@@ -14,9 +14,11 @@ module music (
 
     // The PWM module converts the sample of our triangle wave to a PWM output
     wire [7:0] sample_for_pwm;
+    wire [6:0] tri_sample;
     reg [7:0] sample;
 
-    assign sample_for_pwm = {2'b01 + {1'b0, sample[7]}, sample[6:1]}; 
+    assign tri_sample = sample[6:0] ^ {7{sample[7]}};
+    assign sample_for_pwm = {2'b01 + {1'b0, tri_sample[6]}, tri_sample[5:0]};
     assign pwm = sample_for_pwm > count[7:0];
 
 
