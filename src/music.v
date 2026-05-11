@@ -28,7 +28,7 @@ module music (
     wire wen = count[9:0] == thresh && (frame[10:9] != 2'b11 && frame[9:6] != 0);
     /* verilator lint_on SYNCASYNCNET */
     wire [9:0] next_thresh = thresh + divider;
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rst_n) begin
         if (~rst_n) thresh <= 0;
         else if (wen) thresh <= next_thresh;
     end
